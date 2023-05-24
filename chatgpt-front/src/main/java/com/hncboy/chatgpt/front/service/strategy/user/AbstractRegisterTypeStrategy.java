@@ -45,6 +45,10 @@ public abstract class AbstractRegisterTypeStrategy {
     protected String encryptRawPassword(String rawPassword, String salt) {
         return MD5.create().digestHex16(rawPassword + salt, StandardCharsets.UTF_8);
     }
+    
+    public static void main(String[] args) {
+    	System.out.println(MD5.create().digestHex16("123456" + "abc", StandardCharsets.UTF_8));
+    }
 
     /**
      * 验证是否是有效的注册载体
