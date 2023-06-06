@@ -16,9 +16,9 @@ chat:
   # change this to an `accessToken` extracted from the ChatGPT site's `https://chat.openai.com/api/auth/session` response
   openai_access_token: ${CHAT_OPENAI_ACCESS_TOKEN:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiI2MTk5NjgwOTNAcXEuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJodHRwczovL2FwaS5vcGVuYWkuY29tL2F1dGgiOnsidXNlcl9pZCI6InVzZXItY01xVGE3MnVxejNHcHNtMkN0M2JpeE9uIn0sImlzcyI6Imh0dHBzOi8vYXV0aDAub3BlbmFpLmNvbS8iLCJzdWIiOiJhdXRoMHw2MzkwYTE2OWRhNWJiNzQ1YWE5NTA1MzMiLCJhdWQiOlsiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MSIsImh0dHBzOi8vb3BlbmFpLm9wZW5haS5hdXRoMGFwcC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjg0NDE4ODIzLCJleHAiOjE2ODU2Mjg0MjMsImF6cCI6IlRkSkljYmUxNldvVEh0Tjk1bnl5d2g1RTR5T282SXRHIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBtb2RlbC5yZWFkIG1vZGVsLnJlcXVlc3Qgb3JnYW5pemF0aW9uLnJlYWQgb3JnYW5pemF0aW9uLndyaXRlIn0.dHGZNno6dgcn3LnR5wQt9uDUDyG1FhBPgmQXQ692Z8jr_isP4fxDxq3UIAF3paKoYoIVI5arvYl0PJDmSvD9ZFyIOntwf9jMfKgKY6edG7SREpzrHyE955yBk-8X7vqTOMPQkxQyXD1BOrkhAx7m0tYhLNDCx4KiSUf3Zn_8lv1J2hOjk9oDAzlj3EkZIKhiz0Eepg4u3dEJjjrfjkSznRSKPyx1AXFV6Tt9_vynnepEymokQ238WS27ktfi4T0aNNpGS2Jpa4oqEbJItek9_7TO4GtM3xqAWMRVmbgMZfzLcV7FxC8na1QM8zUnd_vSC9Kh6t3Nst-1TXvvpyuIlg}
   # OpenAI API Base URL - https://api.openai.com/，要加/后缀
-  openai_api_base_url: ${CHAT_OPENAI_API_BASE_URL:https://api.openai.com/}
+  openai_api_base_url: ${CHAT_OPENAI_API_BASE_URL:https://bytetop.cn/}
   # API Model - https://platform.openai.com/docs/models apiKey 和 AccessToken mode 不一样
-  openai_api_model: ${CHAT_OPENAI_API_MODEL:}
+  openai_api_model: ${CHAT_OPENAI_API_MODEL:gpt-4}
   # 反向代理地址 AccessToken 时使用
   api_reverse_proxy: ${CHAT_API_REVERSE_PROXY:https://ai.fakeopen.com/api/conversation}
   # 超时毫秒
