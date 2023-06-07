@@ -1,21 +1,25 @@
 package com.hncboy.chatgpt.front.api.listener;
 
-import cn.hutool.core.util.StrUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.hncboy.chatgpt.base.domain.entity.ChatMessageDO;
 import com.hncboy.chatgpt.front.api.parser.ResponseParser;
 import com.hncboy.chatgpt.front.api.storage.ChatMessageStorage;
 import com.hncboy.chatgpt.front.api.storage.DataStorage;
 import com.hncboy.chatgpt.front.domain.vo.ChatReplyMessageVO;
+
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author hncboy
@@ -25,6 +29,7 @@ import java.util.Objects;
 @Slf4j
 public class ParsedEventSourceListener extends EventSourceListener {
 
+	private Map<String, Boolean> endMap = new HashMap<>();
     /**
      * 已经接收到的完整消息
      */
@@ -94,6 +99,12 @@ public class ParsedEventSourceListener extends EventSourceListener {
         ChatReplyMessageVO chatReplyMessageVO = null;
 
         if (isEnd) {
+        	String key = eventSource.toString();
+        	if (endMap.get(key)) {
+        		endMap.remove(key);
+        		return;
+        	}
+        	endMap.put(key, true);
             // 调用存储结束方法
             dataStorage.onComplete(ChatMessageStorage.builder()
                     .questionChatMessageDO(questionChatMessageDO)
