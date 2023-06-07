@@ -20,11 +20,11 @@ chat:
   # API Model - https://platform.openai.com/docs/models apiKey 和 AccessToken mode 不一样
   openai_api_model: ${CHAT_OPENAI_API_MODEL:gpt-4}
   # 反向代理地址 AccessToken 时使用
-  api_reverse_proxy: ${CHAT_API_REVERSE_PROXY:https://ai.fakeopen.com/api/conversation}
+  api_reverse_proxy: ${CHAT_API_REVERSE_PROXY:}
   # 超时毫秒
   timeout_ms: ${CHAT_TIMEOUT_MS:100000}
   # HTTP 代理
-  http_proxy_host: ${CHAT_HTTP_PROXY_HOST:127.0.0.1}
+  http_proxy_host: ${CHAT_HTTP_PROXY_HOST:}
   # HTTP 代理
   http_proxy_port: ${CHAT_HTTP_PROXY_PORT:}
   # 管理端账号
