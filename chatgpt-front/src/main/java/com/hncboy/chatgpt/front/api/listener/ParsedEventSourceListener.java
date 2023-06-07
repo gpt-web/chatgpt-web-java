@@ -100,7 +100,7 @@ public class ParsedEventSourceListener extends EventSourceListener {
 
         if (isEnd) {
         	String key = eventSource.toString();
-        	if (endMap.get(key)) {
+        	if (endMap.get(key) != null && endMap.get(key)) {
         		endMap.remove(key);
         		return;
         	}
