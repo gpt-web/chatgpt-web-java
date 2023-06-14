@@ -21,6 +21,8 @@ import com.unfbx.chatgpt.entity.chat.ChatCompletion;
 import com.unfbx.chatgpt.entity.chat.Message;
 import com.unfbx.chatgpt.utils.TikTokensUtil;
 import jakarta.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
@@ -56,7 +58,7 @@ public class ApiKeyResponseEmitter implements ResponseEmitter {
         // 所有消息
         LinkedList<Message> messages = new LinkedList<>();
         // 添加用户上下文消息
-        addContextChatMessage(chatMessageDO, messages);
+        addContextChatMessage(chatMessageDO.getId(), chatMessageDO, messages);
 
         // 系统角色消息
         if (StrUtil.isNotBlank(chatProcessRequest.getSystemMessage())) {
@@ -160,8 +162,21 @@ public class ApiKeyResponseEmitter implements ResponseEmitter {
      * @param chatMessageDO 当前消息
      * @param messages      消息列表
      */
-    private void addContextChatMessage(ChatMessageDO chatMessageDO, LinkedList<Message> messages) {
+    private void addContextChatMessage(long id, ChatMessageDO chatMessageDO, LinkedList<Message> messages) {
         if (Objects.isNull(chatMessageDO)) {
+            return;
+        }
+        
+        
+        // 如果有总结，则不往下读了，直接读总结的内容
+        if (StringUtils.isNotBlank(chatMessageDO.getSummary())) {
+        	messages.addFirst(Message.builder().role(Message.Role.SYSTEM)
+                    .content("你们的历史对话总结如下：" + chatMessageDO.getSummary())
+                    .build());
+        	// 每超过10条对话进行一轮总结
+        	if (messages.size() >= 10) {
+        		chatMessageService.summary(id, messages);
+        	}
             return;
         }
         // 父级消息id为空，表示是第一条消息，直接添加到message里
@@ -169,6 +184,10 @@ public class ApiKeyResponseEmitter implements ResponseEmitter {
             messages.addFirst(Message.builder().role(Message.Role.USER)
                     .content(chatMessageDO.getContent())
                     .build());
+            // 每超过10条对话进行一轮总结
+        	if (messages.size() >= 10) {
+        		chatMessageService.summary(id, messages);
+        	}
             return;
         }
 
@@ -186,7 +205,7 @@ public class ApiKeyResponseEmitter implements ResponseEmitter {
             }
             ChatMessageDO parentMessage = chatMessageService.getOne(new LambdaQueryWrapper<ChatMessageDO>()
                     .eq(ChatMessageDO::getMessageId, chatMessageDO.getParentAnswerMessageId()));
-            addContextChatMessage(parentMessage, messages);
+            addContextChatMessage(id, parentMessage, messages);
             return;
         }
 
@@ -196,6 +215,6 @@ public class ApiKeyResponseEmitter implements ResponseEmitter {
                 .build());
         ChatMessageDO parentMessage = chatMessageService.getOne(new LambdaQueryWrapper<ChatMessageDO>()
                 .eq(ChatMessageDO::getMessageId, chatMessageDO.getParentMessageId()));
-        addContextChatMessage(parentMessage, messages);
+        addContextChatMessage(id, parentMessage, messages);
     }
 }

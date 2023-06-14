@@ -160,4 +160,9 @@ public class ChatMessageDO {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+    
+    /**
+     * 总结
+     */
+    private String summary;
 }
