@@ -206,8 +206,10 @@ public class OpenAiStreamClient {
             EventSource.Factory factory = EventSources.createFactory(this.okHttpClient);
             ObjectMapper mapper = new ObjectMapper();
             String requestBody = mapper.writeValueAsString(chatCompletion);
+            String requestBodyEncoding = URLEncoder.encode(requestBody,"UTF-8");
+            log.info(requestBodyEncoding);
             Request request = new Request.Builder()
-                    .url(this.apiHost + "chat-api/chat/stream?request=" + URLEncoder.encode(requestBody,"UTF-8")).get()
+                    .url(this.apiHost + "chat-api/chat/stream?request=" + requestBodyEncoding).get()
 //                    .post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody))
                     .build();
             //创建事件
