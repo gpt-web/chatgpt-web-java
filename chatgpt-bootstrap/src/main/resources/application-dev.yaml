@@ -44,10 +44,10 @@ chat:
 
 # 邮箱验证相关
 email:
-  # SMTP服务器地址
+  # SMTP 服务器地址
   host: ${EMAIL_HOST:xxxxxx}
-  # 服务器一般默认 25 端口
-  port: ${EMAIL_PORT:25}
+  # 端口
+  port: ${EMAIL_PORT:465}
   # 发件人前缀
   from: ${EMAIL_FROM:xxxxxx}
   # 用户名
