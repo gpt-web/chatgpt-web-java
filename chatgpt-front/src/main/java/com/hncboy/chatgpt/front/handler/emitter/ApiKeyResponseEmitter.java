@@ -169,25 +169,25 @@ public class ApiKeyResponseEmitter implements ResponseEmitter {
         
         
         // 如果有总结，则不往下读了，直接读总结的内容
-        if (StringUtils.isNotBlank(chatMessageDO.getSummary())) {
-        	messages.addFirst(Message.builder().role(Message.Role.SYSTEM)
-                    .content("你们的历史对话总结如下：" + chatMessageDO.getSummary())
-                    .build());
-        	// 每超过10条对话进行一轮总结
-        	if (messages.size() >= 10) {
-        		chatMessageService.summary(id, messages);
-        	}
-            return;
-        }
+//        if (StringUtils.isNotBlank(chatMessageDO.getSummary())) {
+//        	messages.addFirst(Message.builder().role(Message.Role.SYSTEM)
+//                    .content("你们的历史对话总结如下：" + chatMessageDO.getSummary())
+//                    .build());
+//        	// 每超过10条对话进行一轮总结
+//        	if (messages.size() >= 10) {
+//        		chatMessageService.summary(id, messages);
+//        	}
+//            return;
+//        }
         // 父级消息id为空，表示是第一条消息，直接添加到message里
         if (Objects.isNull(chatMessageDO.getParentMessageId())) {
             messages.addFirst(Message.builder().role(Message.Role.USER)
                     .content(chatMessageDO.getContent())
                     .build());
             // 每超过10条对话进行一轮总结
-        	if (messages.size() >= 10) {
-        		chatMessageService.summary(id, messages);
-        	}
+//        	if (messages.size() >= 10) {
+//        		chatMessageService.summary(id, messages);
+//        	}
             return;
         }
 
