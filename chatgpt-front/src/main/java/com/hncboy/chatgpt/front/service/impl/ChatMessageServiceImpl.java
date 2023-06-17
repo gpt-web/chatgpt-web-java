@@ -169,13 +169,13 @@ public class ChatMessageServiceImpl extends ServiceImpl<ChatMessageMapper, ChatM
 	}
 
 	@Override
-	@Async
+	@Async("chatExecutor")
 	public void summary(long id, LinkedList<Message> messages) {
 		List<Message> dataList = new ArrayList<>();
 		for (int i = 0; i < messages.size() - 1; i++) {
 			dataList.add(messages.get(i));
 		}
-		dataList.add(new Message(Message.Role.USER.getName(), "请对所有历史对话涉及到职业指导、职业测评的内容进行总结", ""));
+		dataList.add(new Message(Message.Role.USER.getName(), "请将所有历史对话涉及到职业指导、职业测评的内容进行总结输出", null));
 		JSONObject data = new JSONObject();
 		data.put("model", "gpt-4");
 		data.put("messages", dataList);
