@@ -193,6 +193,7 @@ public class ChatMessageServiceImpl extends ServiceImpl<ChatMessageMapper, ChatM
 		String responseBody = response.body();
 		// 打印响应结果
 		System.out.println("总结uStatus Code: " + statusCode);
+		System.out.println("总结: " + responseBody);
 		JSONObject result = new JSONObject(responseBody);
 		String content = result.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getStr("content");
 		System.out.println("总结: " + content);

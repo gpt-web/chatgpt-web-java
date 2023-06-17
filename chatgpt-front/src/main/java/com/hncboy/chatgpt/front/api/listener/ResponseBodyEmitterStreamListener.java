@@ -32,7 +32,7 @@ public class ResponseBodyEmitterStreamListener extends AbstractStreamListener {
             emitter.send((messageCount != 1 ? "\n" : "") + ObjectMapperUtil.toJson(chatReplyMessageVO));
         } catch (Exception e) {
             log.warn("消息发送异常，第{}条消息，消息内容：{}", messageCount, receivedMessage, e);
-            throw new ServiceException("消息发送异常");
+//            throw new ServiceException("消息发送异常");
         }
     }
 

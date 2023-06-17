@@ -127,9 +127,9 @@ public class OpenAiStreamClient {
         OkHttpClient okHttpClient = new OkHttpClient
                 .Builder()
                 .addInterceptor(new HeaderAuthorizationInterceptor(this.apiKey, this.keyStrategy))
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(50, TimeUnit.SECONDS)
-                .readTimeout(50, TimeUnit.SECONDS)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(500, TimeUnit.SECONDS)
+                .readTimeout(500, TimeUnit.SECONDS)
                 .build();
         return okHttpClient;
     }
@@ -208,9 +208,9 @@ public class OpenAiStreamClient {
             String requestBody = mapper.writeValueAsString(chatCompletion);
             String requestBodyEncoding = URLEncoder.encode(requestBody,"UTF-8");
             log.info(requestBodyEncoding);
+//                    .post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody))
             Request request = new Request.Builder()
                     .url(this.apiHost + "chat-api/chat/stream?request=" + requestBodyEncoding).get()
-//                    .post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody))
                     .build();
             //创建事件
             EventSource eventSource = factory.newEventSource(request, eventSourceListener);
